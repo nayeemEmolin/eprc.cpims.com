@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #001f54, #002147);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+        .logout-button {
+            position: absolute;
+            top: 15px;
+            right: 3%;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff4d4d, #ff1a1a);
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.9em;
+            font-weight: bold; 
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            max-width: 150px; /* Restrict button width for better flexibility */
+            text-align: center;
+            z-index: 999; 
+        }
+
+        .logout-button:hover {
+            background: linear-gradient(90deg, #ff8080, #ff4d4d);
+            transform: scale(1.05); /* Add slight scaling on hover */
+        }
+        .title-container {
+            width: 66.66%; /* 2/3 of screen width */
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 15px;
+            padding: 5px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto; /* Center horizontally */
+        }
+
+        .title-container img {
+            width: 130px;
+            margin-bottom: 5px;
+        }
+
+        .dashboard {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.4); /* 40% transparency */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            width: 90%; /* 90% of screen width */
+            max-width: 1200px;
+        }
+
+        .container h2 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px; /* Rounded edges */
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            background: rgba(0, 31, 84, 0.6); /* 40% transparency */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Smooth border */
+        }
+
+        th {
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ff0; /* Yellow text */
+        }
+
+        td {
+            font-weight: bold;
+            color: #fff; /* White text */
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 15px;
+            color: #fff;
+            background: linear-gradient(90deg, #34eb43, #00a64f);
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #0077ff, #00c6ff);
+            transform: scale(1.1);
+        }
+        /* Mobile Responsive Adjustment */
+        @media (max-width: 767px) {
+          .logout-button {
+            right: 10%; /* Smaller offset for mobile */
+            top: 15px;  /* Slightly reduce vertical positioning */
+            padding: 8px 15px; /* Smaller padding for mobile */
+            font-size: 0.8em; /* Slightly smaller text for mobile */
+            font-weight: bold; 
+          }
+        }
+      /* Mobile View Adjustments */
+        @media (max-width: 767px) {
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Mobile-Friendly: Heading-Value Layout */
+        @media (max-width: 767px) {
+            table {
+                display: block;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            thead {
+                display: none; /* Hide table headers in mobile */
+            }
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+                background: rgba(0, 31, 84, 0.4);
+                padding: 10px;
+                border-radius: 10px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            td {
+                display: flex;
+                justify-content: flex-end; /* Align values to the right */
+                align-items: center;
+                padding: 10px;
+                text-align: right; /* Ensure text is aligned to the right */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
+
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #fff;
+                flex: 1;
+                margin-right: 10px;
+                text-align: left; /* Keep headings aligned to the left */
+            }
+        }
+
+        /* Developer Contact Info */
+        .contact-info-container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.4); /* Transparent black */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #fff; /* Default text color */
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: yellow; /* "Developed by" text in yellow */
+            font-weight: bold;
+        }
+
+        .contact-info {
+            font-size: 0.8em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Adjust layout for smaller screens */
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info i {
+            font-size: 1em;
+            color: yellow; /* Icons in yellow */
+        }
+
+        .contact-info .text {
+            color: #fff; /* Text in white */
+            font-size: 0.9em;
+        }
+
+        /* Mobile View: Contact Info */
+        @media (max-width: 767px) {
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .contact-info span {
+                justify-content: center;
+            }
+        }
+          .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal iframe {
+        width: 80%;
+        height: 80%;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .modal .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5em;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <!-- Canvas for Animation -->
+    <canvas id="network-canvas"></canvas>
+    <!-- Title Container -->
+    <!-- Dashboard -->
+    <div class="dashboard">
+    <!-- Title Container -->
+    <div class="title-container">
+        <img src="CODEC_Logo.png" alt="CODEC Logo">
+        <h2>Child Protection Information Management System</h2>
+        <h3>Education and Child Protection for Refugee Children (EPRC)</h3>
+        <h3>UNHCR, CODEC</h3>
+    </div>
+        <h1 id="welcome-message">Welcome, User Name</h1>
+        <button class="logout-button" onclick="logout()">Logout</button>
+
+        <!-- User Information Container -->
+        <div class="container" id="user-information-container">
+            <!-- Content dynamically injected -->
+        </div>
+
+        <!-- Supervisor Information Container -->
+        <div class="container" id="supervisor-information-container">
+            <!-- Content dynamically injected -->
+        </div>
+
+        <!-- Data Container -->
+        <div class="container" id="data-container">
+            <!-- Content dynamically injected -->
+        </div>
+
+        <!-- Developer Contact Info -->
+        <div class="contact-info-container">
+            <h2>Developed By</h2>
+            <div class="contact-info">
+                <span>
+                    <i class="fa fa-user"></i>
+                    <span class="text">Nayeem Sarker</span>
+                </span>
+                <span>
+                    <i class="fa fa-briefcase"></i>
+                    <span class="text">Information Management Manager (IMM)</span>
+                </span>
+                <span>
+                    <i class="fa fa-envelope"></i>
+                    <span class="text">ims.eprc@codec.org.bd</span>
+                </span>
+                <span>
+                    <i class="fa fa-phone"></i>
+                    <span class="text">+8801521407522</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const texts = ["BIA", "BID", "Data Entry", "PSS", "Child Protection", "Positive Parenting", "Girl Shine & SAFE", "Capacity Building", "Awareness-Raising", "Community Development", "Life Skill", "CBCPC", "Case Management"];
+
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                dx: Math.random() * 2 - 1,
+                dy: Math.random() * 2 - 1,
+                text: texts[Math.floor(Math.random() * texts.length)],
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f0';
+                ctx.fill();
+
+                ctx.font = "12px monospace";
+                ctx.fillStyle = "#0f0";
+                ctx.fillText(particle.text, particle.x + 5, particle.y - 5);
+
+                particle.x += particle.dx;
+                particle.y += particle.dy;
+
+                if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+                if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const other = particles[j];
+                    const distance = Math.sqrt(
+                        (particle.x - other.x) ** 2 + (particle.y - other.y) ** 2
+                    );
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.lineWidth = 1.5;
+                        ctx.strokeStyle = 'rgba(0, 255, 0, 0.2)';
+                        ctx.stroke();
+                    }
+                }
+            });
+        }
+
+        function animateParticles() {
+            drawParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Inject user-specific data based on query parameters
+        function loadUserData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const user = urlParams.get('user');
+            const welcomeMessage = document.getElementById('welcome-message');
+            const userContainer = document.getElementById('user-information-container');
+            const supervisorContainer = document.getElementById('supervisor-information-container');
+            const dataContainer = document.getElementById('data-container');
+
+            if (user === 'Nayeem_Sarker') {
+                welcomeMessage.textContent = 'Welcome, Nayeem Sarker';
+
+                userContainer.innerHTML = `
+                    <h2>User Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Nayeem Sarker</td></tr>
+                        <tr><th>Designation</th><td>Information Management Manager (IMM)</td></tr>
+                        <tr><th>Project</th><td>Education and Protection for Refugee Children (EPRC)</td></tr>
+                        <tr><th>Sub Part</th><td>Child Protection</td></tr>
+                        <tr><th>Location</th><td>Project Office, EPRC Project</td></tr>
+                        <tr><th>Joining Date</th><td>5 September 2024</td></tr>
+                    </table>`;
+
+                supervisorContainer.innerHTML = `
+                    <h2>Supervisor Information</h2>
+                    <table>
+                        <tr><td>Name</td><td>Tabarek Hossan</td></tr>
+                        <tr><td>Designation</td><td>Project Coordinator</td></tr>
+                        <tr><td>Location</td><td>Project Office, EPRC Project</td></tr>
+                        <tr><td>Contact Number</td><td>01815332662</td></tr>
+                        <tr><td>Email</td><td>tabarek.eprc@codec.org.bd</td></tr>
+                    </table>`;
+
+                dataContainer.innerHTML = `
+                    <h2>Data</h2>
+                    <table>
+                        <tr><td>BIA Data</td><td><button class="btn">Go to BIA</button></td></tr>
+                        <tr><td>BID Data</td><td><button class="btn">Go to BID</button></td></tr>
+                        <tr><td>Annex-2 Data</td><td><button class="btn">Go to Annex</button></td></tr>
+                        <tr><td>CP STAFF Data</td><td><button class="btn">Go to CP Staff</button></td></tr>
+                        <tr><td>Numeric Data</td><td><button class="btn">Go to Numeric</button></td></tr>
+                        <tr><td>Monthly Numeric Reports</td><td><button class="btn">Go to Numeric Report</button></td></tr>
+                        <tr><td>Monthly ActivityInfo</td><td><button class="btn">Go to ActivityInfo Data</button> <button class="btn">ActivityInfo Site</button></td></tr>
+                        <tr><td>Power BI Report</td><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
+                    </table>`;
+            } else if (user === 'Rajia_Sultana') {
+                welcomeMessage.textContent = 'Welcome, Rajia Sultana';
+
+                userContainer.innerHTML = `
+                    <h2>User Information</h2>
+                    <table>
+                        <tr><td>Name</td><td>Rajia Sultana</td></tr>
+                        <tr><td>Designation</td><td>Case Management Officer (CMO)</td></tr>
+                        <tr><td>Project</td><td>Education and Protection for Refugee Children (EPRC)</td></tr>
+                        <tr><td>Sub Part</td><td>Child Protection</td></tr>
+                        <tr><td>Camp</td><td>2E</td></tr>
+                        <tr><td>MPCAC</td><td>4</td></tr>
+                        <tr><td>MPCAC Name</td><td>Orchid</td></tr>
+                        <tr><td>Joining Date</td><td>7 April 2019</td></tr>
+                    </table>`;
+
+                supervisorContainer.innerHTML = `
+                    <h2>Supervisor Information</h2>
+                    <table>
+                        <tr><td>Name</td><td>Shubho Kundu</td></tr>
+                        <tr><td>Designation</td><td>Case Manager</td></tr>
+                        <tr><td>Camp</td><td>2E</td></tr>
+                        <tr><td>Contact Number</td><td>01742865806</td></tr>
+                        <tr><td>Email</td><td>shubho.eprc@codec.org.bd</td></tr>
+                    </table>`;
+
+                dataContainer.innerHTML = `
+                    <h2>Data</h2>
+                    <table>
+                        <tr><td>BIA Data</td><td><button class="btn">Input BIA</button> <button class="btn">View BIA</button> <button class="btn">Data Report</button></td></tr>
+                        <tr><td>BID Data</td><td><button class="btn">Input BID</button> <button class="btn">View BID</button> <button class="btn">Data Report</button></td></tr>
+                        <tr><td>CPIMS+</td><td><button class="btn">Go to CPIMS+</button></td></tr>
+                        <tr><td>Power BI Report</td><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
+                    </table>`;
+            } else {
+                welcomeMessage.textContent = 'Welcome, Guest';
+                userContainer.innerHTML = '<h2>User Information</h2><p>No data available.</p>';
+                supervisorContainer.innerHTML = '<h2>Supervisor Information</h2><p>No data available.</p>';
+                dataContainer.innerHTML = '<h2>Data</h2><p>No data available.</p>';
+            }
+        }
+
+        function logout() {
+            window.location.href = 'index.html';
+        }
+
+        // Load user-specific data on page load
+        window.onload = loadUserData;
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODEC-CP-Information Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .title-container {
+            width: 66.66%; /* 2/3 of screen width */
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 15px;
+            padding: 5px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+
+        .title-container img {
+            width: 130px;
+            margin-bottom: 5px;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 90%;
+            max-width: 1200px;
+            margin-bottom: 20px;
+        }
+
+        .notice-container,
+        .login-container {
+            width: 45%; /* Equal widths for Notice and Login */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .notice-container {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notice-box {
+            background: #fff; /* White background */
+            color: #000; /* Black text */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow-wrap: break-word; /* Ensure long words wrap */
+            word-wrap: break-word;
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-container input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            color: #fff;
+            background: linear-gradient(90deg, #34eb43, #00a64f);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #0077ff, #00c6ff);
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .youtube-container {
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile View Adjustments */
+        @media (max-width: 767px) {
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .notice-container,
+            .login-container,
+            .youtube-container {
+                width: 100%;
+            }
+
+            iframe {
+                height: 200px;
+            }
+        }
+        /* Developer Contact Info */
+        .contact-info-container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.8); /* Transparent black */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+            color: #fff; /* Default text color */
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: yellow; /* "Developed by" text in yellow */
+            font-weight: bold;
+        }
+
+        .contact-info {
+            font-size: 0.8em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Adjust layout for smaller screens */
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info i {
+            font-size: 1em;
+            color: yellow; /* Icons in yellow */
+        }
+
+        .contact-info .text {
+            color: #fff; /* Text in white */
+            font-size: 0.9em;
+        }
+
+        /* Mobile View: Contact Info */
+        @media (max-width: 767px) {
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .contact-info span {
+                justify-content: center;
+            }
+        }
+          .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    </style>
+</head>
+<body>
+    <!-- Canvas for Animation -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- Title Container -->
+    <div class="title-container">
+        <img src="CODEC_Logo.png" alt="CODEC Logo">
+        <h2>Child Protection Information Management System</h2>
+        <h3>Education and Child Protection for Refugee Children (EPRC)</h3>
+        <h3>UNHCR, CODEC</h3>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="content-container">
+        <!-- Notice Board -->
+        <div class="notice-container">
+            <h3>Official Notice</h3>
+            <div class="notice-box">
+                <p>New training sessions are available starting next week. Please check your emails for further details.</p>
+                <p>Maintenance is scheduled for this weekend. Expect minor disruptions in service.</p>
+            </div>
+        </div>
+
+        <!-- Login Section -->
+        <div class="login-container" id="login-container">
+            <h3>Dear Colleague, please login here</h3>
+            <input type="text" id="userId" placeholder="Enter User ID">
+            <input type="password" id="password" placeholder="Enter Password">
+            <button class="btn" onclick="login()">Login</button>
+            <div class="error" id="error-message"></div>
+        </div>
+    </div>
+
+    <!-- YouTube Section -->
+    <div class="youtube-container">
+        <h3>How to Use This Site</h3>
+        <iframe src="https://www.youtube.com/embed/9XJXgSL1_rI?si=HMPBQRhjOwzV3Hsc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+        <!-- Developer Contact Info -->
+        <div class="contact-info-container">
+            <h2>Developed By</h2>
+            <div class="contact-info">
+                <span>
+                    <i class="fa fa-user"></i>
+                    <span class="text">Nayeem Sarker</span>
+                </span>
+                <span>
+                    <i class="fa fa-briefcase"></i>
+                    <span class="text">Information Management Manager (IMM)</span>
+                </span>
+                <span>
+                    <i class="fa fa-envelope"></i>
+                    <span class="text">ims.eprc@codec.org.bd</span>
+                </span>
+                <span>
+                    <i class="fa fa-phone"></i>
+                    <span class="text">+8801521407522</span>
+                </span>
+            </div>
+        </div>
+
+
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const texts = [
+             // JavaScript code snippets
+            "let x = 10;", 
+            "if (x > 5) { console.log('function drawParticles()'); }",
+            "function draw() { ... }",
+            "const PI = 3.14159;",
+            "document.querySelector('#app')",
+            // Names
+            "Tabarek Hossan", "Asraful Nabi Osmani", "Nazrul Islam Rimon", 
+            "Nayeem Sarker", "Aktar Hossain", "Mohammad Abu Sayem", 
+            "Md. Kamrul Hassan", "Bacchu Molla", "Md. Jonayedul Alam", 
+            "Abdur Rahim", "Md. Abu Sayeid", "Rajia Sultana", 
+            "Sayed Monsur Hezazi", "Asma Homira", "Fahad Ibna Hasan", 
+            "Ismail Uddin", "Shubho Kundu", "Beauty Akter", 
+            "Sampad Sen", "Biswanath Dey", "Jinnat Mohol Fency", 
+            "Tania Khatun", "Afshana Shahin", "Md. Maruf Hossain", 
+            "Mosthari Sultana", "Md. Shahidul Islam", "Sadekur Rahaman", 
+            "Umrasung Marma", "Jamal Uddin", "Taslima Akter", 
+            "Md. Mozammel Hoque", "Md. Anis", "Jeba Aman Choudhury", 
+            "Srabani Ghosh", "Jannatul Ferdoushi", "Sumon Kumar Nath", 
+            "Safayet Hossen", "Ishrat Jahan Meem", "Absa Begum", 
+            "Popy Das", "Al Mumin Chowdhury", "Khyrul Mostafa Rimon", 
+            "Rashedul Kabir", "Hafiza Khatun", "Rupayan Barua", 
+            "Kazi Emran Ul Hoque Chowdhury", "Golam Mostafa", 
+            "Shafiul Alam", "Jaker Hossen", "Alomgir Hossain", 
+            "Shomik Sen", "Roni Mardi", "Joynab Kowcher Sumi", 
+            "Gias Uddin", "Ratree Das", "Helal Uddin", 
+            "Md. Redowanul Kabir", "Upen Mohan Tripura", "Chandana Roy", 
+            "Md. Tarek Aziz Tipu", "Farjana Akter", "Md. Shariful Islam", 
+            "Anisul Islam", "Imrul Hasan Imo", "Muhammed Hasan", 
+            "Saiful Islam", "Kaifun Nessa", "Md. Jahir Uddin", 
+            "Monirul Islam Chowdhury", "Sheuli Dey", "Farjana Arefin", 
+            "Sayeeda Nurjahan Begum", "Mohammed Ali", "Ayesa Akter", 
+            "Sazia Afrin", "Rakibul Islam Chowdhury", "Rajib Talukder", 
+            "Korshed Alom", "Hiralal Chakma", "Homayun Kader", 
+            "Ataur Rahman", "Anindita Das Mimi", "Mobarok Hossain",
+            // Positions
+            "Project Coordinator", "CPCM Coordinator", "DM (Finance & Admin)", 
+            "IM Manager", "Technical Manager-Child Protection", 
+            "Officer (MEAL)", "Officer (System Strengthening & Capacity Development)", 
+            "Officer (Facility Maintenance)", "Officer (Store Management)", 
+            "Officer (Admin & Logistic)", "Centre Manager", "CM Officer", 
+            "PSS Officer", "Outreach Officer", "Case Manager", 
+            "Support Staff", "CP Officer", "Technical Manager", 
+            "Finance Officer", "Store Officer", "Field Officer", 
+            "Logistics Officer", "Program Officer", "Child Protection Officer"
+        ];
+
+
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                dx: Math.random() * 2 - 1,
+                dy: Math.random() * 2 - 1,
+                text: texts[Math.floor(Math.random() * texts.length)],
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f0';
+                ctx.fill();
+
+                ctx.font = "12px monospace";
+                ctx.fillStyle = "#0f0";
+                ctx.fillText(particle.text, particle.x + 5, particle.y - 5);
+
+                particle.x += particle.dx;
+                particle.y += particle.dy;
+
+                if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+                if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const other = particles[j];
+                    const distance = Math.sqrt(
+                        (particle.x - other.x) ** 2 + (particle.y - other.y) ** 2
+                    );
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.lineWidth = 1.5;
+                        ctx.strokeStyle = 'rgba(0, 255, 0, 0.2)';
+                        ctx.stroke();
+                    }
+                }
+            });
+        }
+
+        function animateParticles() {
+            drawParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+      // Array of Users with their credentials and redirect URLs
+      // Array of Users with their credentials and redirect URLs
+const users = [
+    {
+        id: "Nayeem Sarker",
+        password: "Na0101Sa",
+        redirect: "smart_user.html?user=Nayeem_Sarker",
+    },
+    {
+        id: "Rajia Sultana",
+        password: "Ra444Su",
+        redirect: "smart_user.html?user=Rajia_Sultana",
+    },
+    // Add more users here
+];
+
+function login() {
+    const userId = document.getElementById("userId").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMessage = document.getElementById("error-message");
+
+    // Clear previous error messages
+    errorMessage.textContent = "";
+
+    // Find the user in the array
+    const user = users.find((user) => user.id === userId && user.password === password);
+
+    if (user) {
+        // Redirect to Smart User page with user-specific data
+        window.location.href = user.redirect;
+    } else {
+        // Display error message if credentials are invalid
+        errorMessage.textContent = "Invalid User ID or Password!";
+    }
+}
+    </script>
+</body>
+</html>
