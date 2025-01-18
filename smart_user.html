@@ -448,7 +448,7 @@
                 dataContainer.innerHTML = `
                     <h2>Data</h2>
                     <table>
-                        <tr><td>BIA Data</td><td><button class="btn">Go to BIA</button></td></tr>
+                        <tr><td>BIA Data</td><td><a href="#" class="btn" onclick="showModal('biaAdminModal')">Go to BIA</a></td></tr>
                         <tr><td>BID Data</td><td><button class="btn">Go to BID</button></td></tr>
                         <tr><td>Annex-2 Data</td><td><button class="btn">Go to Annex</button></td></tr>
                         <tr><td>CP STAFF Data</td><td><button class="btn">Go to CP Staff</button></td></tr>
@@ -498,7 +498,12 @@
                 dataContainer.innerHTML = '<h2>Data</h2><p>No data available.</p>';
             }
         }
-
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }      
         function logout() {
             window.location.href = 'index.html';
         }
@@ -506,6 +511,16 @@
         // Load user-specific data on page load
         window.onload = loadUserData;
     </script>
+    <!-- Modal Structure -->
+    <div id="biaAdminModal" class="modal">
+        <span class="close" onclick="hideModal('biaAdminModal')">×</span>
+        <a href="https://codecorgbd365-my.sharepoint.com/:x:/g/personal/ims_eprc_codec_org_bd/Ecno5uNW-hJDhoRNpQ-TdM0Bo2G6MWfEiR0dCebS-xWSkA?e=MSZssf" 
+       target="_blank" class="btn" style="margin-bottom: 15px;">Full Screen</a>
+    <iframe
+        width="700" height="900" frameborder="0" scrolling="no" src="https://codecorgbd365-my.sharepoint.com/personal/ims_eprc_codec_org_bd/_layouts/15/Doc.aspx?sourcedoc={e3e6e8c9-fa56-4312-8684-4da50f9374cd}&action=embedview&AllowTyping=True&Item='Form1'!A1%3AAJ1038&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True">  
+    </iframe>
+</div>
+
 </body>
 </html>
 
