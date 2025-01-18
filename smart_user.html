@@ -486,7 +486,7 @@
                 dataContainer.innerHTML = `
                     <h2>Data</h2>
                     <table>
-                        <tr><th>BIA Data</td><td><button class="btn">Input BIA</button> <button class="btn">View BIA</button> <button class="btn">Data Report</button></td></tr>
+                        <tr><th>BIA Data</td><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Input BIA</a> <a href="#" class="btn" onclick="showModal('biaViewRajiaModal')">View BIA</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Data Report</a></td></tr>
                         <tr><th>BID Data</td><td><button class="btn">Input BID</button> <button class="btn">View BID</button> <button class="btn">Data Report</button></td></tr>
                         <tr><th>CPIMS+</td><td><button class="btn">Go to CPIMS+</button></td></tr>
                         <tr><th>Power BI Report</td><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
@@ -512,6 +512,8 @@
         window.onload = loadUserData;
     </script>
     <!-- Modal Structure -->
+
+    <!-- Data Link Admin -->
     <div id="biaAdminModal" class="modal">
         <span class="close" onclick="hideModal('biaAdminModal')">×</span>
         <a href="https://codecorgbd365-my.sharepoint.com/personal/ims_eprc_codec_org_bd/_layouts/15/Doc.aspx?sourcedoc={e3e6e8c9-fa56-4312-8684-4da50f9374cd}&action=embedview&AllowTyping=True&Item='Form1'!A1%3AAJ1038&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True" 
@@ -519,8 +521,33 @@
     <iframe
         width="700" height="900" frameborder="0" scrolling="no" src="https://codecorgbd365-my.sharepoint.com/personal/ims_eprc_codec_org_bd/_layouts/15/Doc.aspx?sourcedoc={e3e6e8c9-fa56-4312-8684-4da50f9374cd}&action=embedview&AllowTyping=True&Item='Form1'!A1%3AAJ1038&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True">  
     </iframe>
-</div>
+    </div>
 
+    <!-- Data Link Rajia Sultana -->
+    <div id="biaInputRajiaModal" class="modal">
+        <span class="close" onclick="hideModal('biaInputRajiaModal')">×</span>
+        <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=Gy2Shdwatk-jAFwEMtlRl_WXQ4OPL8JGoUt7zorUZ4BUOE1XQ0c1WkVYSk1MWDdFRlI3N1RCWkQxNy4u&embed=true" 
+       target="_blank" class="btn" style="margin-bottom: 15px;">Full Screen</a>
+    <iframe
+         width="640px" height="480px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=Gy2Shdwatk-jAFwEMtlRl_WXQ4OPL8JGoUt7zorUZ4BUOE1XQ0c1WkVYSk1MWDdFRlI3N1RCWkQxNy4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> 
+    </iframe>
+    </div>
+    <div id="biaViewRajiaModal" class="modal">
+        <span class="close" onclick="hideModal('biaViewRajiaModal')">×</span>
+        <a href="https://codecorgbd365-my.sharepoint.com/personal/ims_eprc_codec_org_bd/_layouts/15/Doc.aspx?sourcedoc={1f16e2a9-5e6e-4a39-bdf6-3d8910fe6e59}&action=embedview&wdAllowInteractivity=False&Item='Sheet1'!A1%3AAJ306&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True" 
+       target="_blank" class="btn" style="margin-bottom: 15px;">Full Screen</a>
+    <iframe
+         width="700" height="900" frameborder="0" scrolling="no" src="https://codecorgbd365-my.sharepoint.com/personal/ims_eprc_codec_org_bd/_layouts/15/Doc.aspx?sourcedoc={1f16e2a9-5e6e-4a39-bdf6-3d8910fe6e59}&action=embedview&wdAllowInteractivity=False&Item='Sheet1'!A1%3AAJ306&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"> 
+    </iframe>
+    </div>
+    <div id="biaReportRajiaModal" class="modal">
+        <span class="close" onclick="hideModal('biaReportRajiaModal')">×</span>
+        <a href= 
+       target="_blank" class="btn" style="margin-bottom: 15px;">Full Screen</a>
+    <iframe
+          
+    </iframe>
+    </div>
 </body>
 </html>
 
