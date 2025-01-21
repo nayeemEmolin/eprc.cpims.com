@@ -865,6 +865,75 @@
                         <tr><th>CPIMS+</td><td><button class="btn">Go to CPIMS+</button></td></tr>
                         <tr><th>Power BI Report</td><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
                     </table>`;
+            } else if (user === 'Md_Abu_Sayeid') {
+                welcomeMessage.textContent = 'Welcome, Md. Abu Sayeid';
+
+                userContainer.innerHTML = `
+                    <h2>User Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Md. Abu Sayeid</td></tr>
+                        <tr><th>Designation</th><td>CMO</td></tr>
+                        <tr><th>Project</th><td>Education and Protection for Refugee Children (EPRC)</td></tr>
+                        <tr><th>Sub Part</th><td>Child Protection</td></tr>
+                        <tr><th>Camp</th><td>2E</td></tr>
+                        <tr><th>MPCAC</th><td>4</td></tr>
+                        <tr><th>MPCAC Name</th><td>Orchid</td></tr>
+                        <tr><th>Joining Date</th><td>4 July 2023</td></tr>
+                    </table>`;
+
+                supervisorContainer.innerHTML = `
+                    <h2>Supervisor Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Shubho Kundu</td></tr>
+                        <tr><th>Designation</th><td>Case Manager</td></tr>
+                        <tr><th>Camp</th><td>2E</td></tr>
+                        <tr><th>Contact Number</th><td>01742865806</td></tr>
+                        <tr><th>Email</th><td>shubho.eprc@codec.org.bd</td></tr>
+                    </table>`;
+
+                dataContainer.innerHTML = `
+                    <h2>Data</h2>
+                    <table>
+                        <tr><th>BIA Data</th><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Input BIA</a> <a href="#" class="btn"      onclick="showModal('biaViewRajiaModal')">View BIA</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Data Report</a></td></tr>
+                        <tr><th>BID Data</th><td><a href="#" class="btn" onclick="showModal('bidInputRajiaModal')">Input BID</a> <a href="#" class="btn" onclick="showModal('bidViewRajiaModal')">View BID</a> <a href="#" class="btn" onclick="showModal('bidReportRajiaModal')">Data Report</a></td></tr>
+                        <tr><th>CPIMS+</th><td><button class="btn">Go to CPIMS+</button></td></tr>
+                        <tr><th>Power BI Report</th><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
+                    </table>`;
+            } else if (user === 'Hafiza_Khatun') {
+                welcomeMessage.textContent = 'Welcome, Hafiza Khatun';
+ 
+                userContainer.innerHTML = `
+                    <h2>User Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Hafiza Khatun</td></tr>
+                        <tr><th>Designation</th><td>CMO</td></tr>
+                        <tr><th>Project</th><td>Education and Protection for Refugee Children (EPRC)</td></tr>
+                        <tr><th>Sub Part</th><td>Child Protection</td></tr>
+                        <tr><th>Camp</th><td>2E</td></tr>
+                        <tr><th>MPCAC</th><td>4</td></tr>
+                        <tr><th>MPCAC Name</th><td>Orchid</td></tr>
+                        <tr><th>Joining Date</th><td>28 July 2024</td></tr>
+                    </table>`;
+
+                supervisorContainer.innerHTML = `
+                    <h2>Supervisor Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Shubho Kundu</td></tr>
+                        <tr><th>Designation</th><td>Case Manager</td></tr>
+                        <tr><th>Camp</th><td>2E</td></tr>
+                        <tr><th>Contact Number</th><td>01742865806</td></tr>
+                        <tr><th>Email</th><td>shubho.eprc@codec.org.bd</td></tr>
+                    </table>`;
+
+                dataContainer.innerHTML = `
+                    <h2>Data</h2>
+                    <table>
+                        <tr><th>BIA Data</th><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Input BIA</a> <a href="#" class="btn"      onclick="showModal('biaViewRajiaModal')">View BIA</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Data Report</a></td></tr>
+                        <tr><th>BID Data</th><td><a href="#" class="btn" onclick="showModal('bidInputRajiaModal')">Input BID</a> <a href="#" class="btn" onclick="showModal('bidViewRajiaModal')">View BID</a> <a href="#" class="btn" onclick="showModal('bidReportRajiaModal')">Data Report</a></td></tr>
+                        <tr><th>CPIMS+</th><td><button class="btn">Go to CPIMS+</button></td></tr>
+                        <tr><th>Power BI Report</th><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
+                    </table>`;
+
 
             } else {
                 welcomeMessage.textContent = 'Welcome, Guest';
