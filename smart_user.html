@@ -1789,7 +1789,39 @@
                         <tr><th>CPIMS+</td><td><button class="btn">Go to CPIMS+</button></td></tr>
                         <tr><th>Power BI Report</td><td><button class="btn">Data</button> <button class="btn">Graphical Report</button> <button class="btn">Numeric Report</button></td></tr>
                     </table>`;
+            } else if (user === 'Ismail_Uddin') {
+                welcomeMessage.textContent = 'Welcome, Ismail Uddin';
 
+                userContainer.innerHTML = `
+                    <h2>User Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Ismail Uddin</td></tr>
+                        <tr><th>Designation</th><td>Centre Manager</td></tr>
+                        <tr><th>Project</th><td>Education and Protection for Refugee Children (EPRC)</td></tr>
+                        <tr><th>Sub Part</th><td>Child Protection</td></tr>
+                        <tr><th>Location</th><td>Camp-2W</td></tr>
+                        <tr><th>MPCAC</th><td>06</td></tr>
+                        <tr><th>MPCAC Name</th><td>Peacock</td></tr>
+                        <tr><th>Joining Date</th><td>28 January 2024</td></tr>
+                    </table>`;
+
+                supervisorContainer.innerHTML = `
+                    <h2>Supervisor Information</h2>
+                    <table>
+                        <tr><th>Name</th><td>Ismail Mohammad Tasir</td></tr>
+                        <tr><th>Designation</th><td>Technical Manager-Child Protection</td></tr>
+                        <tr><th>Location</th><td>PO</td></tr>
+                        <tr><th>Contact Number</th><td>01840013616</td></tr>
+                        <tr><th>Email</th><td>tasir0002@gmail.com</td></tr>
+                    </table>`;
+
+                dataContainer.innerHTML = `
+                    <h2>Data</h2>
+                    <table>
+                        <tr><th>Monthly Numeric (Prevention & Response)</th><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Input Data</a> <a href="#" class="btn"      onclick="showModal('biaViewRajiaModal')">Data Report</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Instruction Video</a></td></tr>
+                        <tr><th>Monthly Community Awareness Info</th><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Input Data</a> <a href="#" class="btn"      onclick="showModal('biaViewRajiaModal')">Data Report</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Instruction Video</a></td></tr>
+                        <tr><th>Monthly Narrative Report</th><td><a href="#" class="btn" onclick="showModal('biaInputRajiaModal')">Write Narrative</a> <a href="#" class="btn"      onclick="showModal('biaViewRajiaModal')">Narrative Report Analytics</a> <a href="#" class="btn" onclick="showModal('biaReportRajiaModal')">Instruction Video</a></td></tr>
+                    </table>`;
             } else {
                 welcomeMessage.textContent = 'Welcome, Guest';
                 userContainer.innerHTML = '<h2>User Information</h2><p>No data available.</p>';
