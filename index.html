@@ -698,6 +698,14 @@ function login() {
         errorMessage.textContent = "Invalid User ID or Password!";
     }
 }
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault(); // Disable right-click
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && (event.key === "u" || event.key === "s" || event.key === "i" || event.key === "j" || event.key === "c")) {
+                event.preventDefault(); // Disable View Source & DevTools
+            }
+        });
     </script>
 </body>
 </html>
