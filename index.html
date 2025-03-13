@@ -222,6 +222,42 @@
         align-items: center;
         z-index: 1000;
     }
+        @keyframes bubble {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+
+  .notice-bubble {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    background: #f9f9f9;
+    padding: 20px;
+    border-left: 5px solid #007BFF;
+    border-radius: 8px;
+    position: relative;
+    display: inline-block;
+    animation: bubble 3s infinite ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .notice-header {
+    font-size: 22px;
+    color: #d9534f;
+    font-weight: bold;
+  }
+
+  .highlight {
+    color: #007BFF;
+    font-weight: bold;
+  }
+
+  .important {
+    color: #d9534f;
+    font-weight: bold;
+  }
 
     </style>
 </head>
@@ -243,19 +279,18 @@
         <div class="notice-container">
             <h3>Official Notice</h3>
             <div class="notice-box">
-                <p style="font-family: Arial, sans-serif; font-size: 18px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 20px; border-left: 5px solid #007BFF; border-radius: 8px;">
-                    <strong style="font-size: 22px; color: #d9534f;">📢 Notice: Adjusted Reporting Timeline for March 2025 Due to Ramadan</strong><br><br>
-                    Due to the month of <strong>Ramadan</strong>, the reporting schedule for <strong>March 2025</strong> has been adjusted as follows:<br><br>
-                    ✅ <strong>Reporting Month:</strong> <span style="color: #007BFF;">26 February – 20 March 2025</span><br>
-                    ✅ <strong>Data Input & Reporting Period:</strong> <span style="color: #007BFF;">19 March – 20 March (until 5:00 PM)</span><br>
-                    ✅ <strong>Data Cleaning, Validation & Numeric Report Ready:</strong> <span style="color: #007BFF;">21 March – 22 March (until 5:00 PM)</span> <em>(by IM-Manager)</em><br>
-                    ✅ <strong>Narrative Report & Trend Analysis:</strong> <span style="color: #007BFF;">23 March (until 8:00 PM)</span> <em>(by MEAL Officer)</em><br>
-                    ✅ <strong>Report Finalization & Submission:</strong> <span style="color: #007BFF;">24 March 2025</span> <em>(by Project Coordinator)</em><br><br>
-                    📌 <strong style="color: #d9534f;">Please adhere to the revised timeline to ensure timely submission.</strong><br>
+                <p class="notice-bubble">
+                    <span class="notice-header">📢 Notice: Adjusted Reporting Timeline for March 2025 Due to Ramadan</span><br><br>
+                    Due to the month of <span class="important">Ramadan</span>, the reporting schedule for <span class="important">March 2025</span> has been adjusted as follows:<br><br>
+                    ✅ <strong>Reporting Month:</strong> <span class="highlight">26 February – 20 March 2025</span><br>
+                    ✅ <strong>Data Input & Reporting Period:</strong> <span class="highlight">19 March – 20 March (until 5:00 PM)</span><br>
+                    ✅ <strong>Data Cleaning, Validation & Numeric Report Ready:</strong> <span class="highlight">21 March – 22 March (until 5:00 PM)</span> <em>(by IM-Manager)</em><br>
+                    ✅ <strong>Narrative Report & Trend Analysis:</strong> <span class="highlight">23 March (until 8:00 PM)</span> <em>(by MEAL Officer)</em><br>
+                    ✅ <strong>Report Finalization & Submission:</strong> <span class="highlight">24 March 2025</span> <em>(by Project Coordinator)</em><br><br>
+                    📌 <span class="important">Please adhere to the revised timeline to ensure timely submission.</span><br>
                     For any queries, kindly reach out to the respective focal persons.<br><br>
                     <strong style="color: #28a745;">Thank you for your cooperation! 🙏</strong>
                 </p>
-
             </div>
         </div>
 
