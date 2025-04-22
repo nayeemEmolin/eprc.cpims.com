@@ -266,7 +266,8 @@
   background-color: #f7fdfc;
   padding: 20px;
   border-radius: 16px;
-  max-width: 700px;
+  width: 100%;                /* <-- Make box full width */
+  box-sizing: border-box;     /* <-- Prevent overflow */
   margin: 0 auto;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
@@ -286,6 +287,8 @@
   background: #ffffff;
   border-left: 6px solid #64b5f6;
   padding: 16px;
+  width: 100%;                /* <-- Make box full width */
+  box-sizing: border-box;     /* <-- Prevent overflow */
   margin-bottom: 12px;
   border-radius: 12px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
