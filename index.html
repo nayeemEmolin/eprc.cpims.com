@@ -872,32 +872,29 @@ function login() {
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'pt', 'a4'); // A4 page size in pt (points)
-
-    const notice = document.getElementById("notice-content"); // Get the notice content by ID
-
-    // Check if the element exists
-    if (!notice) {
-      alert("Notice content not found!");
-      return;
-    }
-
-    // Using jsPDF's `html` method to capture the content
-    await doc.html(notice, {
-      callback: function (doc) {
-        doc.save('Notice_April_2025.pdf'); // Save as PDF
-      },
-      margin: [20, 20, 20, 20], // Top, Left, Bottom, Right margins
-      autoPaging: 'text',
-      x: 0,
-      y: 0,
-      width: 575, // A4 width in points (adjust if needed)
-      windowWidth: notice.scrollWidth // Ensure content fits into the page width
-    });
-  }
-</script>
+    <script>
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4'); // A4 page size in pt (points)
+            const notice = document.getElementById("notice-content"); // Get the notice content by ID
+            // Check if the element exists
+            if (!notice) {
+                alert("Notice content not found!");
+                return;
+            }
+            // Using jsPDF's `html` method to capture the content
+            await doc.html(notice, {
+                callback: function (doc) {
+                    doc.save('Notice_April_2025.pdf'); // Save as PDF
+                },
+                margin: [20, 20, 20, 20], // Top, Left, Bottom, Right margins
+                autoPaging: 'text',
+                x: 0,
+                y: 0,
+                width: 575, // A4 width in points (adjust if needed)
+                windowWidth: notice.scrollWidth // Ensure content fits into the page width
+                });
+        }
+    </script>
 </body>
 </html>
