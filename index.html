@@ -200,6 +200,12 @@
             color: #fff; /* Text in white */
             font-size: 0.9em;
         }
+        @media print {
+            #downloadNoticeBtn {
+                display: none !important;
+            }
+        }
+
 
         /* Mobile View: Contact Info */
         @media (max-width: 767px) {
@@ -314,6 +320,11 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
   font-size: 15px;
   color: #000000;
+}
+#notice-content, .tube-container {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
     </style>
 </head>
@@ -861,21 +872,21 @@ function login() {
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <script>
         document.getElementById('downloadNoticeBtn').addEventListener('click', () => {
             const element = document.getElementById('notice-content');
             
             const opt = {
-                margin:       0.5,
-                filename:     'Notice-April-2025.pdf',
+                margin:       0.2,
+                filename:     'Notice_April_2025.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                html2canvas:  { scale: 3, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'], before: '.tube-box' }
             };
             html2pdf().set(opt).from(element).save();
         });
     </script>
+
 </body>
 </html>
