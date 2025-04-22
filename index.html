@@ -201,11 +201,11 @@
             font-size: 0.9em;
         }
         @media print {
-            #downloadNoticeBtn {
-                display: none !important;
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
-
 
         /* Mobile View: Contact Info */
         @media (max-width: 767px) {
@@ -871,22 +871,22 @@ function login() {
             }
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script>
-        document.getElementById('downloadNoticeBtn').addEventListener('click', () => {
-            const element = document.getElementById('notice-content');
-            
-            const opt = {
-                margin:       0.2,
-                filename:     'Notice_April_2025.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 3, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'], before: '.tube-box' }
-            };
-            html2pdf().set(opt).from(element).save();
-        });
-    </script>
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script>
+  document.getElementById('downloadNoticeBtn').addEventListener('click', () => {
+    const element = document.getElementById('notice-content');
 
+    const opt = {
+      margin:       0.5,
+      filename:     'Notice_April2025.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, logging: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+      pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  });
+</script>
 </body>
 </html>
