@@ -871,22 +871,27 @@ function login() {
             }
         });
     </script>
-<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-  document.getElementById('downloadNoticeBtn').addEventListener('click', () => {
-    const element = document.getElementById('notice-content');
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
 
-    const opt = {
-      margin:       0.5,
-      filename:     'Notice_April2025.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, logging: true },
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-      pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-    };
+    const notice = document.getElementById("notice-content");
 
-    html2pdf().set(opt).from(element).save();
-  });
+    await doc.html(notice, {
+      callback: function (doc) {
+        doc.save('Notice_April_2025.pdf');
+      },
+      margin: [20, 20, 20, 20],
+      autoPaging: 'text',
+      x: 0,
+      y: 0,
+      width: 575, // A4 width in pt
+      windowWidth: notice.scrollWidth
+    });
+  }
 </script>
+
 </body>
 </html>
