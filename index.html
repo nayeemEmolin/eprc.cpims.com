@@ -44,49 +44,51 @@
             width: 130px;
             margin-bottom: 5px;
         }
-
         .content-container {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 90%;
-            max-width: 1200px;
+            flex-direction: column; /* Stack vertically */
+            align-items: center;    /* Center content */
+            width: 100%;
             margin-bottom: 20px;
         }
-
-        .notice-container,
-        .login-container {
-            width: 90%; /* Equal widths for Notice and Login */
+        /* Updated width for notice-container */
+        .notice-container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .notice-container {
             text-align: left;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .notice-box {
             background: #fff; /* White background */
-            color: #000; /* Black text */
+            color: #000;      /* Black text */
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            overflow-wrap: break-word; /* Ensure long words wrap */
+            overflow-wrap: break-word;
             word-wrap: break-word;
         }
-
+        /* Kept login-container at fixed width and pushed below notice-container */
         .login-container {
+            width: 90%;              /* Keep smaller width */
+            max-width: 500px;        /* Optional: restrict max width */
+            margin: 30px auto 0;     /* Placed below and centered */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         .login-container input {
             width: 80%;
             padding: 10px;
