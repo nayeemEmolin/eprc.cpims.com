@@ -334,41 +334,50 @@
         <!-- Notice Board -->
         <div class="notice-container">
             <h3>Official Notice</h3>
-            <div class="tube-container">
-                <div class="tube-header"><span class="notice-header">📢 Notice: Reporting Timeline for April 2025</span><br><br></div>
-                <div class="tube-box">
-                    ✅ <strong>Reporting Month:</strong>
-                    <span class="tube-highlight">21 March – 25 April 2025</span>
-                </div>
-                <div class="tube-box">
-                    ✅ <strong>Data Input through the whole period:</strong>
-                    <span class="tube-highlight">21 March – 25 April 2025</span>
-                    <em>(by Case Management Officers)</em>
-                </div>
-                <div class="tube-box">
-                    ✅ <strong>Reporting Period:</strong>
-                    <span class="tube-highlight">25 April – 26 April (until 5:00 PM)</span>
-                    <em>(by Case Managers & Center Managers)</em>
-                </div>
-                <div class="tube-box">
-                    ✅ <strong>Data Cleaning, Validation & Numeric Report Ready:</strong>
-                    <span class="tube-highlight">27 April – 28 April (until 5:00 PM)</span>
-                    <em>(by IM-Manager)</em>
-                </div>
-                <div class="tube-box">
-                    ✅ <strong>Narrative Report & Trend Analysis:</strong>
-                    <span class="tube-highlight">29 April - 30 April (until 5:00 PM)</span>
-                    <em>(by MEAL Officer)</em>
-                </div>
-                <div class="tube-box">
-                    ✅ <strong>Report Finalization & Submission:</strong>
-                    <span class="tube-highlight">01 May 2025</span>
-                    <em>(by Project Coordinator)</em>
-                </div>
-                <div class="tube-footer">
-                    📌 <span class="important">Please adhere to the revised timeline to ensure timely submission.</span><br>
-                    For any queries, kindly reach out to the respective focal persons.<br><br>
-                    <strong style="color: #28a745;">Thank you for your cooperation! 🙏</strong>
+            <!-- ✅ Download Button Goes Here -->
+            <div style="text-align: right; width: 100%;">
+                <button id="downloadNoticeBtn" style="padding: 8px 16px; background-color: #1565c0; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                    ⬇️ Download PDF
+                </button>
+            </div>
+            <!-- 🔹 Notice Content -->
+            <div id="notice-content" class="tube-container">
+                <div class="tube-container">
+                    <div class="tube-header"><span class="notice-header">📢 Notice: Reporting Timeline for April 2025</span><br><br></div>
+                    <div class="tube-box">
+                        ✅ <strong>Reporting Month:</strong>
+                        <span class="tube-highlight">21 March – 25 April 2025</span>
+                    </div>
+                    <div class="tube-box">
+                        ✅ <strong>Data Input through the whole period:</strong>
+                        <span class="tube-highlight">21 March – 25 April 2025</span>
+                        <em>(by Case Management Officers)</em>
+                    </div>
+                    <div class="tube-box">
+                        ✅ <strong>Reporting Period:</strong>
+                        <span class="tube-highlight">25 April – 26 April (until 5:00 PM)</span>
+                        <em>(by Case Managers & Center Managers)</em>
+                    </div>
+                    <div class="tube-box">
+                        ✅ <strong>Data Cleaning, Validation & Numeric Report Ready:</strong>
+                        <span class="tube-highlight">27 April – 28 April (until 5:00 PM)</span>
+                        <em>(by IM-Manager)</em>
+                    </div>
+                    <div class="tube-box">
+                        ✅ <strong>Narrative Report & Trend Analysis:</strong>
+                        <span class="tube-highlight">29 April - 30 April (until 5:00 PM)</span>
+                        <em>(by MEAL Officer)</em>
+                    </div>
+                    <div class="tube-box">
+                        ✅ <strong>Report Finalization & Submission:</strong>
+                        <span class="tube-highlight">01 May 2025</span>
+                        <em>(by Project Coordinator)</em>
+                    </div>
+                    <div class="tube-footer">
+                        📌 <span class="important">Please adhere to the revised timeline to ensure timely submission.</span><br>
+                        For any queries, kindly reach out to the respective focal persons.<br><br>
+                        <strong style="color: #28a745;">Thank you for your cooperation! 🙏</strong>
+                    </div>
                 </div>
             </div>
         </div>
@@ -849,6 +858,20 @@ function login() {
             if (event.ctrlKey && (event.key === "u" || event.key === "s" || event.key === "i" || event.key === "j" || event.key === "c")) {
                 event.preventDefault(); // Disable View Source & DevTools
             }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('downloadNoticeBtn').addEventListener('click', () => {
+            const element = document.getElementById('notice-content');
+            const opt = {
+                margin:       0.3,
+                filename:     'Notice-April-2025.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
         });
     </script>
 </body>
