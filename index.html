@@ -346,7 +346,7 @@
         <div class="notice-container">
             <h3>Official Notice</h3>
             <!-- ✅ Download Button Goes Here -->
-            <div style="text-align: right;">
+            <div style="display: flex; justify-content: flex-end;">
                 <button onclick="downloadPDF()" style="padding: 8px 16px; background-color: #1565c0; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
                     ⬇️ Download PDF
                 </button>
@@ -871,30 +871,21 @@ function login() {
             }
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        async function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'pt', 'a4'); // A4 page size in pt (points)
-            const notice = document.getElementById("notice-content"); // Get the notice content by ID
-            // Check if the element exists
-            if (!notice) {
-                alert("Notice content not found!");
-                return;
-            }
-            // Using jsPDF's `html` method to capture the content
-            await doc.html(notice, {
-                callback: function (doc) {
-                    doc.save('Notice_April_2025.pdf'); // Save as PDF
-                },
-                margin: [20, 20, 20, 20], // Top, Left, Bottom, Right margins
-                autoPaging: 'text',
-                x: 0,
-                y: 0,
-                width: 575, // A4 width in points (adjust if needed)
-                windowWidth: notice.scrollWidth // Ensure content fits into the page width
-                });
-        }
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDF() {
+  const element = document.getElementById('notice-content');
+  const opt = {
+    margin:       0.5,
+    filename:     'Notice_April_2025.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+  
+  html2pdf().set(opt).from(element).save();
+}
+</script>
 </body>
 </html>
