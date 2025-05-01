@@ -493,25 +493,45 @@
     document.getElementById("risk").innerText = "⚠️ Unknown";
   }
 </script>
-<div style="max-width: 400px; margin: 30px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-  <h3>🧮Age Calculator</h3>
-  <label for="dob">Enter Date of Birth:</label><br>
-  <input type="date" id="dob" onchange="calculateAge()" style="width: 100%; padding: 8px; margin-top: 10px;"><br><br>
-  
-  <div id="ageResult" style="font-weight: bold; font-size: 16px;"></div>
+<!-- Age Calculator Section -->
+<div class="notice-container">
+    <h3>🎂 Age Calculator</h3>
+    <div class="tube-container">
+        <div class="tube-container">
+            <div class="tube-header">
+                <span class="notice-header">📅 Enter Date of Birth</span><br><br>
+            </div>
+            <div class="tube-box">
+                🗓️ <strong>Date of Birth:</strong>
+                <input type="date" id="dob" style="padding: 5px; margin-left: 10px; border-radius: 5px; border: 1px solid #90caf9;">
+                <button onclick="calculateAge()" style="padding: 6px 12px; margin-left: 10px; background-color: #1565c0; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Calculate</button>
+            </div>
+            <div class="tube-box" id="ageResult">
+                ⏳ Your age will be shown here.
+            </div>
+            <div class="tube-footer">
+                📌 <span class="important">Make sure the date is accurate for precise age calculation.</span><br>
+                <strong style="color: #28a745;">This tool is useful for verifying child eligibility in CPIMS forms.</strong>
+            </div>
+        </div>
+    </div>
 </div>
-
 <script>
   function calculateAge() {
-    const dobInput = document.getElementById('dob').value;
-    if (!dobInput) return;
+    const dob = document.getElementById("dob").value;
+    const result = document.getElementById("ageResult");
 
-    const dob = new Date(dobInput);
+    if (!dob) {
+      result.innerHTML = "⚠️ Please select a valid date.";
+      return;
+    }
+
+    const birthDate = new Date(dob);
     const today = new Date();
 
-    let years = today.getFullYear() - dob.getFullYear();
-    let months = today.getMonth() - dob.getMonth();
-    let days = today.getDate() - dob.getDate();
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
 
     if (days < 0) {
       months--;
@@ -523,8 +543,7 @@
       months += 12;
     }
 
-    document.getElementById('ageResult').innerText = 
-      `Age: ${years} year(s), ${months} month(s), and ${days} day(s)`;
+    result.innerHTML = `✅ You are <span class="tube-highlight">${years} years, ${months} months, ${days} days</span> old.`;
   }
 </script>
         <!-- Developer Contact Info -->
