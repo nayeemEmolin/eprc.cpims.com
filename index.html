@@ -493,7 +493,7 @@
     document.getElementById("risk").innerText = "⚠️ Unknown";
   }
 </script>
-<!-- 📍 MAP + ROUTING SECTION START -->
+<!-- 📍 MAP + ROUTING SECTION WITH SCROLLBARS -->
 <div style="width: 92%; max-width: 1000px; margin: 0 auto; padding: 20px; border-radius: 20px; background: #f7f7f7; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
   <h3 style="text-align: center; color: #1565c0;">📌 Real-Time Directions & Traffic</h3>
 
@@ -512,7 +512,10 @@
     </button>
   </div>
 
-  <div id="live-map" style="height: 450px; width: 100%; border-radius: 10px;"></div>
+  <!-- ✅ MAP CONTAINER WITH SCROLL -->
+  <div id="live-map" 
+       style="height: 450px; width: 100%; border-radius: 10px; overflow: auto; overflow-x: scroll; overflow-y: scroll;">
+  </div>
 </div>
 
 <script>
@@ -603,11 +606,10 @@
   }
 </script>
 
-<!-- ✅ Load Google Maps JS API with Places Library -->
+<!-- ✅ Load Google Maps API with Places -->
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFrb17f4efAWh7lDUYiLgM9Vouy1Kih6A=initMap&libraries=places">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFrb17f4efAWh7lDUYiLgM9Vouy1Kih6A&callback=initMap&libraries=places">
 </script>
-<!-- 📍 MAP + ROUTING SECTION END -->
     
 <!-- Age Calculator Section -->
 <div class="notice-container">
