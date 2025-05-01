@@ -493,6 +493,122 @@
     document.getElementById("risk").innerText = "⚠️ Unknown";
   }
 </script>
+<!-- 📍 MAP + ROUTING SECTION START -->
+<div style="width: 92%; max-width: 1000px; margin: 0 auto; padding: 20px; border-radius: 20px; background: #f7f7f7; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+  <h3 style="text-align: center; color: #1565c0;">📌 Real-Time Directions & Traffic</h3>
+
+  <div style="margin-bottom: 15px; text-align: center;">
+    <input type="text" id="destination" placeholder="Enter destination (e.g., Hospital)"
+           style="padding: 10px; width: 60%; max-width: 400px; border-radius: 6px; border: 1px solid #aaa;">
+
+    <button onclick="useCurrentLocation()" 
+            style="padding: 10px; margin-left: 10px; background-color: #4caf50; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+      📍 Use My Location
+    </button>
+
+    <button onclick="calculateRoute()" 
+            style="padding: 10px 20px; margin-left: 10px; background-color: #1565c0; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
+      🚗 Get Directions
+    </button>
+  </div>
+
+  <div id="live-map" style="height: 450px; width: 100%; border-radius: 10px;"></div>
+</div>
+
+<script>
+  let map, marker, directionsService, directionsRenderer, autocomplete;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("live-map"), {
+      zoom: 14,
+      center: { lat: 23.8103, lng: 90.4125 },
+      mapTypeControl: false,
+    });
+
+    const trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({ map });
+
+    marker = new google.maps.Marker({
+      map,
+      title: "Your Location",
+      icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+    });
+
+    const input = document.getElementById("destination");
+    autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.setFields(["place_id", "geometry", "name"]);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          map.setCenter(pos);
+          marker.setPosition(pos);
+          marker.setMap(map);
+          window.userLocation = pos;
+        },
+        () => alert("❗ Please allow location access."),
+        { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+      );
+    } else {
+      alert("❗ Your browser does not support geolocation.");
+    }
+  }
+
+  function calculateRoute() {
+    const destination = document.getElementById("destination").value;
+
+    if (!window.userLocation) {
+      alert("🚫 Location not yet loaded. Please wait.");
+      return;
+    }
+
+    if (!destination) {
+      alert("📝 Please enter a destination.");
+      return;
+    }
+
+    directionsService.route(
+      {
+        origin: window.userLocation,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+        drivingOptions: {
+          departureTime: new Date(),
+          trafficModel: "bestguess",
+        },
+      },
+      (response, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(response);
+        } else {
+          alert("❌ Could not find route: " + status);
+        }
+      }
+    );
+  }
+
+  function useCurrentLocation() {
+    if (window.userLocation) {
+      document.getElementById("destination").value = `${window.userLocation.lat}, ${window.userLocation.lng}`;
+    } else {
+      alert("❗ Location not yet loaded.");
+    }
+  }
+</script>
+
+<!-- ✅ Load Google Maps JS API with Places Library -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFrb17f4efAWh7lDUYiLgM9Vouy1Kih6A&callback=initMap&libraries=places">
+</script>
+<!-- 📍 MAP + ROUTING SECTION END -->
+    
 <!-- Age Calculator Section -->
 <div class="notice-container">
     <h3>🎂 Age Calculator</h3>
