@@ -415,6 +415,84 @@
         <h3>Know about Data Protection and Information Sharing Protocol</h3>
         <iframe src="https://www.youtube.com/embed/18WUOG4Twp0?si=illQKLa73AsSLUsS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+<!-- Live Weather Section -->
+<div class="notice-container">
+    <h3>🌦️ Live Weather & Environmental Update</h3>
+    <div id="weather-content" class="tube-container">
+        <div class="tube-container">
+            <div class="tube-header">
+                <span class="notice-header">📍 Your Local Weather Summary</span><br><br>
+            </div>
+            <div class="tube-box">
+                🌡️ <strong>Temperature:</strong>
+                <span class="tube-highlight" id="temp">Loading...</span>
+            </div>
+            <div class="tube-box">
+                ☁️ <strong>Condition:</strong>
+                <span class="tube-highlight" id="condition">Loading...</span>
+            </div>
+            <div class="tube-box">
+                💧 <strong>Humidity:</strong>
+                <span class="tube-highlight" id="humidity">Loading...</span>
+            </div>
+            <div class="tube-box">
+                💨 <strong>Wind Speed:</strong>
+                <span class="tube-highlight" id="wind">Loading...</span>
+            </div>
+            <div class="tube-box">
+                🚦 <strong>Environmental Risk Level:</strong>
+                <span class="tube-highlight" id="risk">Loading...</span>
+            </div>
+            <div class="tube-footer">
+                📌 <span class="important">Enable location permission to fetch real-time local data.</span><br>
+                Refresh the page if prompted for location access.<br><br>
+                <strong style="color: #1565c0;">Stay safe and stay updated! 🌍</strong>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  window.onload = function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showWeather, showError);
+    } else {
+      document.getElementById("condition").innerText = "Geolocation not supported.";
+    }
+  };
+
+  async function showWeather(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const apiKey = '99dba9f746bd584ef5de97ba0ec7254f';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      document.getElementById("temp").innerText = `${data.main.temp} °C`;
+      document.getElementById("condition").innerText = data.weather[0].description;
+      document.getElementById("humidity").innerText = `${data.main.humidity}%`;
+      document.getElementById("wind").innerText = `${data.wind.speed} m/s`;
+
+      let risk = "🟢 Safe";
+      if (data.main.temp > 40 || data.wind.speed > 20) risk = "🔴 Critical";
+      else if (data.main.temp > 35 || data.wind.speed > 10) risk = "🟠 Caution";
+
+      document.getElementById("risk").innerText = risk;
+    } catch (err) {
+      document.getElementById("temp").innerText = "Error fetching data.";
+    }
+  }
+
+  function showError(error) {
+    document.getElementById("temp").innerText = "Location access denied.";
+    document.getElementById("condition").innerText = "Weather unavailable.";
+    document.getElementById("humidity").innerText = "N/A";
+    document.getElementById("wind").innerText = "N/A";
+    document.getElementById("risk").innerText = "⚠️ Unknown";
+  }
+</script>
 <div style="max-width: 400px; margin: 30px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
   <h3>🧮Age Calculator</h3>
   <label for="dob">Enter Date of Birth:</label><br>
