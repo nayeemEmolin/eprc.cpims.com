@@ -415,69 +415,6 @@
         <h3>Know about Data Protection and Information Sharing Protocol</h3>
         <iframe src="https://www.youtube.com/embed/18WUOG4Twp0?si=illQKLa73AsSLUsS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-    <div style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-  <h3>🌤️ Live Weather Update</h3>
-  <div id="weatherResult" style="margin-top: 15px; font-size: 16px;">Fetching weather data...</div>
-</div>
-<div style="max-width: 92%; margin: 20px auto; padding: 20px; border-radius: 50px; background: linear-gradient(135deg, #00c6ff, #0072ff); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
-  <h3 style="color: white; text-align: center; font-size: 24px; font-weight: bold;">🌤️ Live Weather Update</h3>
-  <div id="weatherResult" style="margin-top: 15px; color: white; font-size: 16px; text-align: center;">Fetching weather data...</div>
-</div>
-
-<script>
-  window.onload = function () {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showWeather, showError);
-    } else {
-      document.getElementById("weatherResult").innerText = "Geolocation is not supported by this browser.";
-    }
-  };
-
-  async function showWeather(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    const apiKey = '99dba9f746bd584ef5de97ba0ec7254f';
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-
-      const temp = data.main.temp;
-      const desc = data.weather[0].description;
-      const wind = data.wind.speed;
-      const humidity = data.main.humidity;
-      const location = data.name;
-
-      // Risk level logic
-      let risk = "Safe";
-      if (temp > 40 || wind > 20) risk = "🔴 Critical";
-      else if (temp > 35 || wind > 10) risk = "🟠 Caution";
-      else risk = "🟢 Safe";
-
-      document.getElementById("weatherResult").innerHTML = `
-        📍 <strong>Location:</strong> ${location}<br>
-        🌡️ <strong>Temperature:</strong> ${temp}°C<br>
-        ☁️ <strong>Condition:</strong> ${desc}<br>
-        💧 <strong>Humidity:</strong> ${humidity}%<br>
-        💨 <strong>Wind Speed:</strong> ${wind} m/s<br>
-        🚦 <strong>Environmental Risk Level:</strong> ${risk}
-      `;
-    } catch (error) {
-      document.getElementById("weatherResult").innerText = "⚠️ Failed to load weather data.";
-    }
-  }
-
-  function showError(error) {
-    const msg = {
-      1: "⚠️ User denied the request for Geolocation.",
-      2: "⚠️ Location information is unavailable.",
-      3: "⚠️ The request to get user location timed out.",
-      0: "⚠️ An unknown error occurred."
-    };
-    document.getElementById("weatherResult").innerText = msg[error.code] || msg[0];
-  }
-</script>
 <div style="max-width: 400px; margin: 30px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
   <h3>🧮Age Calculator</h3>
   <label for="dob">Enter Date of Birth:</label><br>
